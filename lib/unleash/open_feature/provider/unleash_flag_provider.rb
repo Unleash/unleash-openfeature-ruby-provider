@@ -20,7 +20,9 @@ module Unleash
         end
 
         def init(_evaluation_context = nil)
-          # The Unleash Ruby client starts itself during construction.
+          # Ruby SDK currently just spins itself up and does the thing
+          # Leaving this here because long term plan is to actually have an init method
+          # and when that happens this method here needs to get filled in
         end
 
         def shutdown

@@ -46,12 +46,6 @@ module Unleash
           value.nil? || value.is_a?(String) || value.is_a?(Numeric) ||
             value == true || value == false || value.is_a?(Time)
         end
-
-        def string_value(value)
-          return value.utc.iso8601 if value.is_a?(Time)
-
-          value.to_s
-        end
       end
     end
   end
