@@ -19,6 +19,12 @@ For local development:
 bundle install
 ```
 
+If you cloned without submodules, initialize the verifier harness:
+
+```bash
+git submodule update --init --recursive
+```
+
 ## Use
 
 ```ruby
@@ -68,6 +74,12 @@ Build artifacts are written to `pkg/`.
 
 ```bash
 bundle exec rspec
+```
+
+The contract tests use the `verifier` submodule. To refresh it:
+
+```bash
+git submodule update --remote --merge verifier
 ```
 
 ## Lint
