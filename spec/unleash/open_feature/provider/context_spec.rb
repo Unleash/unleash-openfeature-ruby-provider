@@ -5,7 +5,7 @@ require 'open_feature/sdk/evaluation_context'
 
 RSpec.describe Unleash::OpenFeature::Provider::Context do
   describe '.to_unleash_context' do
-    it 'maps base fields and moves custom scalar fields into properties' do
+    it 'maps base fields and moves custom fields into properties' do
       evaluation_context = OpenFeature::SDK::EvaluationContext.new(
         targeting_key: 'targeting-user',
         'userId' => 'explicit-user',
@@ -19,7 +19,7 @@ RSpec.describe Unleash::OpenFeature::Provider::Context do
 
       expect(context.user_id).to eq('targeting-user')
       expect(context.session_id).to eq('session-123')
-      expect(context.properties).to include(thing: 'test', enabled: 'true', count: '3')
+      expect(context.properties).to include(thing: 'test', enabled: true, count: 3)
     end
 
     it 'discards nested custom fields' do

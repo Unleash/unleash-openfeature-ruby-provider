@@ -28,9 +28,9 @@ module Unleash
             next if key == 'targeting_key'
 
             if BASE_CONTEXT_KEYS.key?(key)
-              context[BASE_CONTEXT_KEYS.fetch(key)] = string_value(value)
+              context[BASE_CONTEXT_KEYS.fetch(key)] = value
             elsif scalar?(value)
-              properties[key] = string_value(value)
+              properties[key] = value
             else
               logger.debug("Discarding nested Unleash context property: #{key}")
             end
