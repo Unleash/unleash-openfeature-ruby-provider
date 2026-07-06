@@ -1,0 +1,36 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: read
+
+jobs:
+  build-test:
+    name: Build and test
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: "3.4.10"
+          bundler-cache: true
+
+      - name: Run specs
+        run: bundle exec rspec
+
+      - name: Run lint
+        run: bundle exec rubocop --format simple
+
+      - name: Build gem
+        run: bundle exec rake build
