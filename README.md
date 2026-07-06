@@ -25,6 +25,14 @@ If you cloned without submodules, initialize the verifier harness:
 git submodule update --init --recursive
 ```
 
+If the verifier submodule is intentionally updated, refresh it and commit the
+new submodule pointer:
+
+```bash
+git submodule update --remote --merge verifier
+git status
+```
+
 ## Use
 
 ```ruby
