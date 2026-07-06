@@ -26,7 +26,7 @@ module Unleash
         end
 
         def shutdown
-          client.shutdown if client.respond_to?(:shutdown)
+          client.shutdown
         end
 
         def fetch_boolean_value(flag_key:, default_value:, evaluation_context: nil)
