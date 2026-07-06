@@ -1,4 +1,5 @@
 /.bundle/
 /coverage/
+/unleash-openfeature-provider-*.gem
 /pkg/
 /vendor/bundle/
