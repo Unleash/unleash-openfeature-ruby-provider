@@ -8,7 +8,7 @@ require 'unleash/bootstrap/configuration'
 
 module ContractVerifierSpec
   ROOT = File.expand_path('..', __dir__)
-  CONTRACT_PATH = File.join(ROOT, 'verifier',  'spec','contract.json')
+  CONTRACT_PATH = File.join(ROOT, 'verifier', 'spec', 'contract.json')
   FEATURES_PATH = File.join(ROOT, 'verifier', 'fixtures', 'unleash-features.json')
   CAPABILITIES = %w[localEval perCallContext].freeze
   KNOWN_GAPS = {
