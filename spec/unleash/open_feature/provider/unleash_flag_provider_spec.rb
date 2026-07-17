@@ -28,9 +28,34 @@ class FakeClient
 end
 
 RSpec.describe Unleash::OpenFeature::Provider::UnleashFlagProvider do
-  subject(:provider) { described_class.new(client, logger: Logger.new(nil)) }
+  subject(:provider) { described_class.for_client(client, logger: Logger.new(nil)) }
 
   let(:client) { FakeClient.new }
+
+  it 'builds and owns a client with its own sdk flavor stamped on' do
+    captured = nil
+    allow(Unleash::Client).to receive(:new) do |**opts|
+      captured = opts
+      FakeClient.new
+    end
+
+    described_class.new(app_name: 'test-app', url: 'http://unleash.invalid/api', logger: Logger.new(nil))
+
+    expect(captured[:sdk_flavor]).to eq(Unleash::OpenFeature::Provider::SDK_FLAVOR)
+    expect(captured[:sdk_flavor_version]).to eq(Unleash::OpenFeature::Provider::SDK_FLAVOR_VERSION)
+  end
+
+  it 'stamps its own sdk flavor even if the caller passes one' do
+    captured = nil
+    allow(Unleash::Client).to receive(:new) do |**opts|
+      captured = opts
+      FakeClient.new
+    end
+
+    described_class.new(app_name: 'test-app', url: 'http://unleash.invalid/api', sdk_flavor: 'something-else')
+
+    expect(captured[:sdk_flavor]).to eq(Unleash::OpenFeature::Provider::SDK_FLAVOR)
+  end
 
   it 'resolves boolean flags through the Unleash client' do
     client.enabled_flags['enabled'] = true
