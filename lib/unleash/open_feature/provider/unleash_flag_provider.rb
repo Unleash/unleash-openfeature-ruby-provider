@@ -13,10 +13,18 @@ module Unleash
 
         attr_reader :metadata
 
-        def initialize(client, logger: Logger.new($stderr))
-          @client = client
-          @logger = logger
-          @metadata = ::OpenFeature::SDK::Provider::ProviderMetadata.new(name: NAME).freeze
+        def initialize(**client_options)
+          client_options[:sdk_flavor] = SDK_FLAVOR
+          client_options[:sdk_flavor_version] = SDK_FLAVOR_VERSION
+          logger = client_options[:logger] || Logger.new($stderr)
+          setup(::Unleash::Client.new(**client_options), logger)
+        end
+
+        # Test-only: wrap a fake client directly, bypasses client construction. Not part of the public API.
+        def self.for_client(client, logger: Logger.new($stderr))
+          provider = allocate
+          provider.send(:setup, client, logger)
+          provider
         end
 
         def init(_evaluation_context = nil)
@@ -84,6 +92,12 @@ module Unleash
         private
 
         attr_reader :client, :logger
+
+        def setup(client, logger)
+          @client = client
+          @logger = logger
+          @metadata = ::OpenFeature::SDK::Provider::ProviderMetadata.new(name: NAME).freeze
+        end
 
         def fetch_variant_value(flag_key:, default_value:, evaluation_context:, payload_types:,
                                 parse_error_code: error_code::PARSE_ERROR)

@@ -43,7 +43,7 @@ RSpec.describe 'OpenFeature verifier contract' do
       logger: Logger.new(nil)
     )
 
-    @provider = Unleash::OpenFeature::Provider::UnleashFlagProvider.new(unleash_client, logger: Logger.new(nil))
+    @provider = Unleash::OpenFeature::Provider::UnleashFlagProvider.for_client(unleash_client, logger: Logger.new(nil))
     OpenFeature::SDK.configure do |config|
       config.set_provider_and_wait(@provider)
     end
