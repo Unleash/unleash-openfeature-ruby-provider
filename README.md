@@ -37,10 +37,11 @@ git status
 
 ```ruby
 require 'open_feature/sdk'
-require 'unleash'
 require 'unleash-openfeature-provider'
 
-unleash_client = Unleash::Client.new(
+# The provider builds and owns the Unleash client. Pass the same options you
+# would give Unleash::Client, it sets its SDK-flavor metadata on top.
+provider = Unleash::OpenFeature::Provider::UnleashFlagProvider.new(
   app_name: 'my-ruby-app',
   url: 'https://app.unleash-hosted.com/demo/api',
   custom_http_headers: {
@@ -49,7 +50,7 @@ unleash_client = Unleash::Client.new(
 )
 
 OpenFeature::SDK.configure do |config|
-  config.set_provider(Unleash::OpenFeature::Provider::UnleashFlagProvider.new(unleash_client))
+  config.set_provider(provider)
 end
 
 client = OpenFeature::SDK.build_client
