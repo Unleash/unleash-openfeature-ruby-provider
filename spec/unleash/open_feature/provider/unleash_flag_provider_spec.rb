@@ -28,18 +28,22 @@ class FakeClient
 end
 
 RSpec.describe Unleash::OpenFeature::Provider::UnleashFlagProvider do
-  subject(:provider) { described_class.for_client(client, logger: Logger.new(nil)) }
+  subject(:provider) { described_class.new(logger: Logger.new(nil)) }
 
   let(:client) { FakeClient.new }
+
+  before do
+    allow(Unleash::Client).to receive(:new).and_return(client)
+  end
 
   it 'builds and owns a client with its own sdk flavor stamped on' do
     captured = nil
     allow(Unleash::Client).to receive(:new) do |**opts|
       captured = opts
-      FakeClient.new
+      client
     end
 
-    described_class.new(app_name: 'test-app', url: 'http://unleash.invalid/api', logger: Logger.new(nil))
+    provider
 
     expect(captured[:sdk_flavor]).to eq(Unleash::OpenFeature::Provider::SDK_FLAVOR)
     expect(captured[:sdk_flavor_version]).to eq(Unleash::OpenFeature::Provider::SDK_FLAVOR_VERSION)
@@ -49,10 +53,10 @@ RSpec.describe Unleash::OpenFeature::Provider::UnleashFlagProvider do
     captured = nil
     allow(Unleash::Client).to receive(:new) do |**opts|
       captured = opts
-      FakeClient.new
+      client
     end
 
-    described_class.new(app_name: 'test-app', url: 'http://unleash.invalid/api', sdk_flavor: 'something-else')
+    described_class.new(sdk_flavor: 'something-else', logger: Logger.new(nil))
 
     expect(captured[:sdk_flavor]).to eq(Unleash::OpenFeature::Provider::SDK_FLAVOR)
   end
