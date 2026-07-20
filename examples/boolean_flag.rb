@@ -2,7 +2,6 @@
 
 require 'optparse'
 require 'open_feature/sdk'
-require 'unleash'
 require 'unleash-openfeature-provider'
 
 options = {
@@ -41,7 +40,7 @@ unless missing.empty?
   exit 1
 end
 
-unleash_client = Unleash::Client.new(
+provider = Unleash::OpenFeature::Provider::UnleashFlagProvider.new(
   app_name: options.fetch(:app_name),
   url: options.fetch(:url),
   custom_http_headers: {
@@ -50,7 +49,7 @@ unleash_client = Unleash::Client.new(
 )
 
 OpenFeature::SDK.configure do |config|
-  config.set_provider(Unleash::OpenFeature::Provider::UnleashFlagProvider.new(unleash_client))
+  config.set_provider(provider)
 end
 
 client = OpenFeature::SDK.build_client
@@ -64,4 +63,4 @@ enabled = client.fetch_boolean_value(
 
 puts enabled
 
-unleash_client.shutdown
+provider.shutdown
