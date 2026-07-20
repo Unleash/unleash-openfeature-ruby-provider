@@ -4,9 +4,8 @@ source 'https://rubygems.org'
 
 gemspec
 
-# TEMPORARY (local development): resolve `unleash` from the local SDK checkout,
-# which carries the unreleased `sdk_flavor` config option this provider needs.
-# Remove once the Unleash Ruby SDK 6.7+ is published to RubyGems.
+# TODO: temp for now: use `unleash` from the local SDK checkout with `sdk_flavor` config
+# Remove this once the Unleash Ruby SDK 6.7+ is published
 gem 'unleash', path: '../unleash-ruby-sdk'
 
 group :development, :test do

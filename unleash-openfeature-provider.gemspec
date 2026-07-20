@@ -22,6 +22,5 @@ Gem::Specification.new do |spec|
   spec.require_paths = ['lib']
 
   spec.add_dependency 'openfeature-sdk', '0.6.0'
-  # Needs the release that adds the `sdk_flavor` / `sdk_flavor_version`
   spec.add_dependency 'unleash', '~> 6.7'
 end
