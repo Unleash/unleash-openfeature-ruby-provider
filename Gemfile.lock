@@ -3,7 +3,7 @@ PATH
   specs:
     unleash-openfeature-provider (0.1.0.pre.alpha.2)
       openfeature-sdk (= 0.6.0)
-      unleash (~> 6.6)
+      unleash (~> 6.7)
 
 GEM
   remote: https://rubygems.org/
@@ -85,7 +85,7 @@ GEM
     unicode-display_width (3.2.0)
       unicode-emoji (~> 4.1)
     unicode-emoji (4.2.0)
-    unleash (6.6.0)
+    unleash (6.7.0)
       base64 (~> 0.3.0)
       ld-eventsource (= 2.2.4)
       logger (~> 1.6)

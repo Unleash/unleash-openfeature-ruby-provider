@@ -13,8 +13,13 @@ module Unleash
 
         attr_reader :metadata
 
-        def initialize(client, logger: Logger.new($stderr))
-          @client = client
+        def initialize(**client_options)
+          logger = client_options[:logger] || Logger.new($stderr)
+          @client = ::Unleash::Client.new(
+            **client_options,
+            sdk_flavor: SDK_FLAVOR,
+            sdk_flavor_version: SDK_FLAVOR_VERSION
+          )
           @logger = logger
           @metadata = ::OpenFeature::SDK::Provider::ProviderMetadata.new(name: NAME).freeze
         end

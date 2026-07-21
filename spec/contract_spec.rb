@@ -33,7 +33,8 @@ RSpec.describe 'OpenFeature verifier contract' do
 
     features = File.read(ContractVerifierSpec::FEATURES_PATH)
     bootstrap_config = Unleash::Bootstrap::Configuration.new(data: features)
-    unleash_client = Unleash::Client.new(
+
+    @provider = Unleash::OpenFeature::Provider::UnleashFlagProvider.new(
       app_name: 'openfeature-ruby-verifier',
       url: 'http://unleash-bootstrap.invalid/api',
       custom_http_headers: { Authorization: 'verifier-not-a-real-token' },
@@ -42,8 +43,6 @@ RSpec.describe 'OpenFeature verifier contract' do
       refresh_interval: 3_600,
       logger: Logger.new(nil)
     )
-
-    @provider = Unleash::OpenFeature::Provider::UnleashFlagProvider.new(unleash_client, logger: Logger.new(nil))
     OpenFeature::SDK.configure do |config|
       config.set_provider_and_wait(@provider)
     end
