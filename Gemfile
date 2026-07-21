@@ -4,9 +4,10 @@ source 'https://rubygems.org'
 
 gemspec
 
-# TODO: temp for now: use `unleash` from the local SDK checkout with `sdk_flavor` config
+# TEMPORARY: the `sdk_flavor` config this provider needs isn't on RubyGems yet.
 # Remove this once the Unleash Ruby SDK 6.7+ is published
-gem 'unleash', path: '../unleash-ruby-sdk'
+# and in CI (no sibling checkout required). Remove once Unleash Ruby SDK 6.7 ships.
+gem 'unleash', git: 'https://github.com/Unleash/unleash-ruby-sdk', branch: 'feat/sdk-flavor-metadata'
 
 group :development, :test do
   gem 'rake', '~> 13.0'

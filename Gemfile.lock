@@ -1,5 +1,7 @@
-PATH
-  remote: ../unleash-ruby-sdk
+GIT
+  remote: https://github.com/Unleash/unleash-ruby-sdk
+  revision: b6fa4f519f8437012d087e17b83e4da1f809c7d1
+  branch: feat/sdk-flavor-metadata
   specs:
     unleash (6.7.0)
       base64 (~> 0.3.0)
