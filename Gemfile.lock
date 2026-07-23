@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    unleash-openfeature-provider (0.1.0.pre.alpha.2)
+    unleash-openfeature-provider (0.1.0)
       openfeature-sdk (= 0.6.0)
       unleash (~> 6.7)
 
